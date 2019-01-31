@@ -1,0 +1,25 @@
+{
+    "name": "anfa/php2curl",
+    "type": "library",
+    "description": "tiny lib to convert data from PHP request to CURL command, thus importing PHP request to Postman",
+    "keywords": ["curl", "postman"],
+    "license": "WTFPL",
+    "authors": [
+        {
+            "name": "anfa",
+            "email": "catanfa@yandex.ru",
+            "homepage": "http://github.com/biganfa/php2curl"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Php2Curl\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^5.3.3"
+    },
+    "require-dev": {
+         "phpunit/phpunit": "^7"
+    }
+}

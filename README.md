@@ -6,6 +6,18 @@ You can then immediately import it to Postman in 2 clicks via _Import -> Paste R
 
 ## Possible use cases
 
+* importing web request from PHP code to plain CURL
+
+* importing web request from PHP code to Postman
+
+* cowboy style debugging while xdebug is not available (e.g. production) 
+
+* trying to debug a microservice
+
+* sharing a request with a co-worker
+
+* so on
+
 ## Examples
 
 
@@ -23,6 +35,9 @@ $url = eval(file_get_contents('bit.ly/..'));
 ## Known limitations (pull requests are welcome!)
 
 * files are not supported
+
+## Tests
+```phpunit```
 
 ## License information
 see LICENSE file

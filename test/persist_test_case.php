@@ -1,7 +1,9 @@
 <?php
 
-$name = 'simple_get'; // this variable is changed for every test case
-
+if (!isset($_GET['name'])) {
+    throw new Exception('name URL parameter not found');
+}
+$name = $_GET['name']; // this variable is changed for every test case
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $get     = var_export($_GET, true);
@@ -39,10 +41,10 @@ TEST_CASE;
 
 if ($isPostman) {
     file_put_contents(__DIR__ . "/test_cases/$name.php", $testCase);
-    file_put_contents(__DIR__ . "/test_cases/postman_$name.php", $testCase);
+    file_put_contents(__DIR__ . "/test_cases/postman_outcome/postman_$name.php", $testCase);
 } else {
     if ($isPhp2Curl) {
-        file_put_contents(__DIR__ . "/test_cases/curl_$name.php", $testCase);
+        file_put_contents(__DIR__ . "/test_cases/curl_outcome/curl_$name.php", $testCase);
     }
 }
 

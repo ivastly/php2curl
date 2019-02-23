@@ -1,11 +1,11 @@
 <?php
 // Postman
-// simple_get test case 
+// basic_auth test case 
 return $globalsArray = array (
   'get' => 
   array (
     'city' => 'Tokyo',
-    'name' => 'simple_get',
+    'name' => 'basic_auth',
   ),
   'post' => 
   array (
@@ -13,42 +13,46 @@ return $globalsArray = array (
   'request' => 
   array (
     'city' => 'Tokyo',
-    'name' => 'simple_get',
+    'name' => 'basic_auth',
   ),
   'server' => 
   array (
     'DOCUMENT_ROOT' => '/Users/vasiliy/PhpstormProjects/php2curl',
     'REMOTE_ADDR' => '::1',
-    'REMOTE_PORT' => '52610',
+    'REMOTE_PORT' => '52590',
     'SERVER_SOFTWARE' => 'PHP 7.1.23 Development Server',
     'SERVER_PROTOCOL' => 'HTTP/1.1',
     'SERVER_NAME' => 'localhost',
     'SERVER_PORT' => '8000',
-    'REQUEST_URI' => '/weather/forecast?city=Tokyo&name=simple_get',
+    'REQUEST_URI' => '/weather/forecast?city=Tokyo&name=basic_auth',
     'REQUEST_METHOD' => 'GET',
     'SCRIPT_NAME' => '/weather/forecast',
     'SCRIPT_FILENAME' => 'test/persist_test_case.php',
     'PHP_SELF' => '/weather/forecast',
-    'QUERY_STRING' => 'city=Tokyo&name=simple_get',
+    'QUERY_STRING' => 'city=Tokyo&name=basic_auth',
     'HTTP_CACHE_CONTROL' => 'no-cache',
-    'HTTP_POSTMAN_TOKEN' => 'cedb4d41-7c59-40ad-bc9e-3828d808ebe7',
+    'HTTP_POSTMAN_TOKEN' => '5ec1c295-f313-4873-abbf-c16fa7149408',
+    'HTTP_AUTHORIZATION' => 'Basic dXNlcjpwYXNzd29yZA==',
     'HTTP_USER_AGENT' => 'PostmanRuntime/7.6.0',
     'HTTP_ACCEPT' => '*/*',
     'HTTP_HOST' => 'localhost:8000',
     'HTTP_ACCEPT_ENCODING' => 'gzip, deflate',
     'HTTP_CONNECTION' => 'keep-alive',
-    'REQUEST_TIME_FLOAT' => 1549919589.54767,
-    'REQUEST_TIME' => 1549919589,
+    'PHP_AUTH_USER' => 'user',
+    'PHP_AUTH_PW' => 'password',
+    'REQUEST_TIME_FLOAT' => 1549919585.289947,
+    'REQUEST_TIME' => 1549919585,
     'argv' => 
     array (
-      0 => 'city=Tokyo&name=simple_get',
+      0 => 'city=Tokyo&name=basic_auth',
     ),
     'argc' => 1,
   ),
   'headers' => 
   array (
     'cache-control' => 'no-cache',
-    'Postman-Token' => 'cedb4d41-7c59-40ad-bc9e-3828d808ebe7',
+    'Postman-Token' => '5ec1c295-f313-4873-abbf-c16fa7149408',
+    'Authorization' => 'Basic dXNlcjpwYXNzd29yZA==',
     'User-Agent' => 'PostmanRuntime/7.6.0',
     'Accept' => '*/*',
     'Host' => 'localhost:8000',

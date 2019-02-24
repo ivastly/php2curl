@@ -78,6 +78,7 @@ class Php2Curl
     {
         $this->eliminateKeyFromServerAndHeaders('content-length');
     }
+
     private function removeBoundaryPartFromContentType()
     {
         // in RFC it is said that boundary is required. In practice, everything works like a charm without boundary part. Maybe it could be a problem for file uploads? will fix in v2.
@@ -187,6 +188,9 @@ class Php2Curl
         {
 
             case 'POST':
+            case 'PUT':
+            case 'PATCH':
+            case 'DELETE':
 
                 if ($this->post || $this->phpInput)
                 {
@@ -245,12 +249,9 @@ class Php2Curl
 
                 break;
 
-            case 'PUT':
-            case 'PATCH':
-            case 'DELETE':
-                break;
-
             case 'OPTIONS':
+                // does anyone send request body in case OPTIONS ?
+                return '';
                 break;
         };
 

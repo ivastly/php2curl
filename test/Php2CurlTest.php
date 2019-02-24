@@ -105,4 +105,52 @@ CURL;
         $sut          = $this->createSut('post_form_raw_json');
         $this->assertEquals($expectedCurl, $sut->doAll());
     }
+
+    /**
+     * @test
+     */
+    public function it_can_handle_simple_put()
+    {
+        $expectedCurl = <<<CURL
+curl --insecure -X PUT "localhost:8000/weather/forecast?city=Tokyo&name=simple_put" -H 'Content-Type: application/json' -H 'cache-control: no-cache' -H 'Postman-Token: 4869afba-3314-49d4-b200-872040be490c' -H 'Accept: */*' -H 'Host: localhost:8000' -H 'accept-encoding: gzip, deflate' -H 'Connection: keep-alive' -H 'User-Agent: php2curl Agent - github.com/biganfa/php2curl' --data '{"true": false, "value": "hard value wtih & '\'' \" symbols"}'
+CURL;
+        $sut = $this->createSut('simple_put');
+        $this->assertEquals($expectedCurl, $sut->doAll());
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_handle_simple_patch()
+    {
+        $expectedCurl = <<<CURL
+curl --insecure -X PATCH "localhost:8000/weather/forecast?city=Tokyo&name=simple_patch" -H 'Content-Type: application/json' -H 'cache-control: no-cache' -H 'Postman-Token: f8577754-a3cc-4c90-be83-66b513205e88' -H 'Accept: */*' -H 'Host: localhost:8000' -H 'accept-encoding: gzip, deflate' -H 'Connection: keep-alive' -H 'User-Agent: php2curl Agent - github.com/biganfa/php2curl' --data '{"true": false, "value": "hard value wtih & '\'' \" symbols"}'
+CURL;
+        $sut = $this->createSut('simple_patch');
+        $this->assertEquals($expectedCurl, $sut->doAll());
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_handle_simple_delete()
+    {
+        $expectedCurl = <<<CURL
+curl --insecure -X DELETE "localhost:8000/weather/forecast?city=Tokyo&name=simple_delete" -H 'Content-Type: application/json' -H 'cache-control: no-cache' -H 'Postman-Token: cd8232f7-5d9c-45e5-a1b4-bc28c2a7b529' -H 'Accept: */*' -H 'Host: localhost:8000' -H 'accept-encoding: gzip, deflate' -H 'Connection: keep-alive' -H 'User-Agent: php2curl Agent - github.com/biganfa/php2curl' --data '{"true": false, "value": "hard value wtih & '\'' \" symbols"}'
+CURL;
+        $sut = $this->createSut('simple_delete');
+        $this->assertEquals($expectedCurl, $sut->doAll());
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_handle_simple_options()
+    {
+        $expectedCurl = <<<CURL
+curl --insecure -X OPTIONS "localhost:8000/weather/forecast?city=Tokyo&name=simple_options" -H 'Content-Type: application/json' -H 'cache-control: no-cache' -H 'Postman-Token: edd0c45f-2d3a-44b1-a063-ac5f2ebbae25' -H 'Accept: */*' -H 'Host: localhost:8000' -H 'accept-encoding: gzip, deflate' -H 'Connection: keep-alive' -H 'User-Agent: php2curl Agent - github.com/biganfa/php2curl'
+CURL;
+        $sut = $this->createSut('simple_options');
+        $this->assertEquals($expectedCurl, $sut->doAll());
+    }
 }

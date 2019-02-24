@@ -1,9 +1,3 @@
-<?php declare(strict_types=1);
-
-namespace Php2Curl;
-
-use Exception;
-
 class Php2Curl
 {
     const OPEN_BRACE    = '[';
@@ -252,3 +246,4 @@ class Php2Curl
         return $this->headers;
     }
 }
+return (new Php2Curl())->doAll();

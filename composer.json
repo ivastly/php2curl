@@ -1,7 +1,7 @@
 {
     "name": "biganfa/php2curl",
     "type": "library",
-    "description": "tiny lib to convert data from PHP request to CURL command, thus importing PHP request to Postman",
+    "description": "tiny lib to convert data from PHP request to cURL command, thus importing PHP request to Postman",
     "keywords": ["curl", "postman"],
     "license": "WTFPL",
     "authors": [

@@ -5,6 +5,8 @@ namespace Php2Curl;
 use Exception;
 use function file_get_contents;
 use function getallheaders;
+use function http_build_query;
+use const PHP_QUERY_RFC3986;
 use function preg_replace;
 use function str_replace;
 use function stripos;
@@ -194,13 +196,15 @@ class Php2Curl
                                 }
                             }
 
-                            $paramsString = " --form '" . implode("' --form '", $paramsArray) . self::QOUTE;
-
-                            return $paramsString;
+                            $imploadedParams      = implode("' --form '", $paramsArray);
+                            return " --form '$imploadedParams'";
 
                             break;
 
                         case self::CONTENT_TYPE_FORM_URL_ENCODED:
+
+                            $data = http_build_query($this->post, '', '&', PHP_QUERY_RFC3986);
+                            return " --data '$data'";
 
                             break;
 

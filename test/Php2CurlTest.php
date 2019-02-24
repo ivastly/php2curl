@@ -63,10 +63,20 @@ class Php2CurlTest extends TestCase
         $expectedCurl = <<<CURL
 curl --insecure -X POST "localhost:8000/weather/forecast?city=Tokyo&name=post_form_data" -H 'cache-control: no-cache' -H 'Postman-Token: 8075ab05-fe3b-4f22-837b-3cf9686480f4' -H 'User-Agent: php2curl Agent / github.com/biganfa/php2curl' -H 'Accept: */*' -H 'Host: localhost:8000' -H 'accept-encoding: gzip, deflate' -H 'content-type: multipart/form-data' -H 'Connection: keep-alive' --form 'post_key=post-value' --form 'post_key2=hard value wtih & '\'' " symbols'
 CURL;
-;
         $sut = $this->createSut('post_form_data');
         $this->assertEquals($expectedCurl, $sut->doAll());
     }
 
+    /**
+     * @test
+     */
+    public function it_can_handle_post_with_form_url_encoded()
+    {
+        $expectedCurl = <<<CURL
+curl --insecure -X POST "localhost:8000/weather/forecast?city=Tokyo&name=post_form_urlencoded" -H 'Content-Type: application/x-www-form-urlencoded' -H 'cache-control: no-cache' -H 'Postman-Token: 71e787a5-947b-46a4-a687-de425c42f4d8' -H 'User-Agent: php2curl Agent / github.com/biganfa/php2curl' -H 'Accept: */*' -H 'Host: localhost:8000' -H 'accept-encoding: gzip, deflate' -H 'Connection: keep-alive' -H 'content-type: ' --data 'key=value&hard_one=hard%20value%20wtih%20%26%20%27%20%22%20symbols'
+CURL;
+        $sut = $this->createSut('post_form_urlencoded');
+        $this->assertEquals($expectedCurl, $sut->doAll());
+    }
 
 }

@@ -14,13 +14,13 @@ steps to cover new functionality with unit test. Feel free to improve this guide
 * everything (PHP globals, php input data, etc.) will be saved into `postman_outcome/postman_<identifier>.php`
 * create new test case in `Php2CurlTest.php` file following the template:
 ```php
- /**
+    /**
      * @test
      */
-    public function it_can_handle_simple_patch() // test case name is it_can_handle_<test case identifier>
+    public function it_can_handle_<test case identifier>() // test case name is it_can_handle_<test case identifier>
     {
         $expectedCurl = ''; // this is intentionally empty string at the beginning
-        $sut = $this->createSut('post_form_data'); // test case identifier here as an argument
+        $sut = $this->createSut('<identifer>'); // test case identifier here as an argument
         $this->assertEquals($expectedCurl, $sut->doAll());
     }
 ```
@@ -31,7 +31,7 @@ Copy the content of this file and carefully compare it
 with `postman_outcome/postman_<identifier>.php` (via "compare with clipboard" from PHPStorm, or just http://www.quickdiff.com/), 
 treating the postman one as the source of truth.
 * if those two files are equal functionality-wise (`$_SERVER['REQUEST_TIME']` is different and anything else like that) 
-you can copy the curl command to `§exceptedCurl` variable in the test.
+you can copy the curl command to `$exceptedCurl` variable in the test.
 * run the test again to make sure it is green now
 * make sure other tests are still green
 * done!

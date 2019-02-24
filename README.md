@@ -8,7 +8,7 @@ You can then immediately import it to Postman in 2 clicks via _Import -> Paste R
 
 * importing web request from PHP code to plain CURL
 
-* *importing web request from PHP code to Postman*
+* **importing web request from PHP code to Postman**
 
 * cowboy style debugging while xdebug is not available (e.g. production) 
 

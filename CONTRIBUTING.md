@@ -13,7 +13,7 @@ steps to cover new functionality with unit test. Feel free to improve this guide
 * send a request from step#2 to the server from step#4 (here, to http://localhost:8000)
 * everything (PHP globals, php input data, etc.) will be saved into `postman_outcome/postman_<identifier>.php`
 * create new test case in `Php2CurlTest.php` file following the template:
-`
+```php
  /**
      * @test
      */
@@ -23,7 +23,7 @@ steps to cover new functionality with unit test. Feel free to improve this guide
         $sut = $this->createSut('post_form_data'); // test case identifier here as an argument
         $this->assertEquals($expectedCurl, $sut->doAll());
     }
-`
+```
 * run the new test case, and you will see the curl command returned by `doAll()` on the screen.
 * copy/paste it to terminal and run
 * if the command is correct, you should find a file with the same format under `curl_outcome/curl_<identifier>.php`. 

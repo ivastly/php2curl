@@ -2,6 +2,9 @@
 
 namespace Php2Curl;
 
+use function array_filter;
+use const ARRAY_FILTER_USE_KEY;
+use function array_walk;
 use Exception;
 use function file_get_contents;
 use function getallheaders;
@@ -66,20 +69,22 @@ class Php2Curl
     {
         // in RFC it is said that boundary is required. In practice, everything works like a charm without boundary part. Maybe it could be a problem for file uploads? will fix in v2.
         // also we want to drop the 'content-length' header, because if we remove the boundary, the body is changed and request just hangs forever
-        $purgeBoundaryPart = function ($string) {
-            return preg_replace('/; boundary=(-)+[[:digit:]]+$/', '', $string);
+        $purgeBoundaryPartLambda = function (&$headerValue, $headerName) {
+            $headerName = strtolower($headerName);
+            if ($headerName === 'content-type' || $headerName === 'http-content-type')
+            {
+                $headerValue = preg_replace('/; boundary=(-)+[[:digit:]]+$/', '', $headerValue);
+            }
         };
+        array_walk($this->server, $purgeBoundaryPartLambda);
+        array_walk($this->headers, $purgeBoundaryPartLambda);
 
-        if (isset($this->server['HTTP_CONTENT_TYPE']))
+        $filterContentLengthLambda = function ($key)
         {
-            $this->server['CONTENT_TYPE']      = $purgeBoundaryPart($this->server['CONTENT_TYPE']);
-            $this->server['HTTP_CONTENT_TYPE'] = $purgeBoundaryPart($this->server['HTTP_CONTENT_TYPE']);
-            $this->headers['content-type']     = $purgeBoundaryPart($this->headers['content-type']);
-        }
-
-        unset($this->server['CONTENT_LENGTH']);
-        unset($this->server['HTTP_CONTENT_LENGTH']);
-        unset($this->headers['content-length']);
+            return !(strtolower($key) == 'content-length' || strtolower($key) == 'http-content-length');
+        };
+        $this->server = array_filter($this->server, $filterContentLengthLambda, ARRAY_FILTER_USE_KEY);
+        $this->headers = array_filter($this->headers, $filterContentLengthLambda, ARRAY_FILTER_USE_KEY);
     }
 
     private function guessContentTypeFromHeaders()

@@ -31,7 +31,7 @@ return $globalsArray = array (
   array (
     'DOCUMENT_ROOT' => '/Users/vasiliy/PhpstormProjects/php2curl',
     'REMOTE_ADDR' => '::1',
-    'REMOTE_PORT' => '65455',
+    'REMOTE_PORT' => '61366',
     'SERVER_SOFTWARE' => 'PHP 7.1.23 Development Server',
     'SERVER_PROTOCOL' => 'HTTP/1.1',
     'SERVER_NAME' => 'localhost',
@@ -42,10 +42,10 @@ return $globalsArray = array (
     'SCRIPT_FILENAME' => 'test/persist_test_case.php',
     'PHP_SELF' => '/weather/forecast',
     'QUERY_STRING' => 'city=Tokyo&name=post_form_data_array',
-    'CONTENT_TYPE' => 'multipart/form-data; boundary=--------------------------725283481258091221425027',
-    'HTTP_CONTENT_TYPE' => 'multipart/form-data; boundary=--------------------------725283481258091221425027',
+    'CONTENT_TYPE' => 'multipart/form-data; boundary=--------------------------478347269993951676096424',
+    'HTTP_CONTENT_TYPE' => 'multipart/form-data; boundary=--------------------------478347269993951676096424',
     'HTTP_CACHE_CONTROL' => 'no-cache',
-    'HTTP_POSTMAN_TOKEN' => '233f95bc-f336-458b-9a55-1a970760bdad',
+    'HTTP_POSTMAN_TOKEN' => '3a9f31ea-6498-4f2d-93a0-535c5861a168',
     'HTTP_USER_AGENT' => 'PostmanRuntime/7.6.0',
     'HTTP_ACCEPT' => '*/*',
     'HTTP_HOST' => 'localhost:8000',
@@ -53,8 +53,8 @@ return $globalsArray = array (
     'CONTENT_LENGTH' => '442',
     'HTTP_CONTENT_LENGTH' => '442',
     'HTTP_CONNECTION' => 'keep-alive',
-    'REQUEST_TIME_FLOAT' => 1551014812.037023,
-    'REQUEST_TIME' => 1551014812,
+    'REQUEST_TIME_FLOAT' => 1551018336.471554,
+    'REQUEST_TIME' => 1551018336,
     'argv' => 
     array (
       0 => 'city=Tokyo&name=post_form_data_array',
@@ -63,9 +63,9 @@ return $globalsArray = array (
   ),
   'headers' => 
   array (
-    'Content-Type' => 'multipart/form-data; boundary=--------------------------725283481258091221425027',
+    'Content-Type' => 'multipart/form-data; boundary=--------------------------478347269993951676096424',
     'cache-control' => 'no-cache',
-    'Postman-Token' => '233f95bc-f336-458b-9a55-1a970760bdad',
+    'Postman-Token' => '3a9f31ea-6498-4f2d-93a0-535c5861a168',
     'User-Agent' => 'PostmanRuntime/7.6.0',
     'Accept' => '*/*',
     'Host' => 'localhost:8000',

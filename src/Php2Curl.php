@@ -47,7 +47,6 @@ class Php2Curl
     // not the full list, just special cases from Postman app
     const CONTENT_TYPE_FORM_DATA        = 'multipart/form-data';
     const CONTENT_TYPE_FORM_URL_ENCODED = 'x-www-form-urlencoded';
-    const CONTENT_TYPE_RAW              = 'raw';
     const CONTENT_TYPE_UNKNOWN          = 'unknown';
 
     public function __construct($get = null, $post = null, $request = null, $server = null, $headers = null, $phpInput = null)
@@ -134,7 +133,7 @@ class Php2Curl
     {
 
         $portPart = '';
-        if ($this->server['SEVER_PORT'] != '80')
+        if (isset($this->server['SERVER_PORT']) && $this->server['SERVER_PORT'] != '80')
         {
             $portPart = ':' . $this->server['SERVER_PORT'];
         }
@@ -172,7 +171,7 @@ class Php2Curl
 
             case 'POST':
 
-                if ($this->post)
+                if ($this->post || $this->phpInput)
                 {
 
                     switch ($this->guessedContentType)
@@ -213,11 +212,12 @@ class Php2Curl
 
                             break;
 
-                        case self::CONTENT_TYPE_RAW:
-
-                            break;
-
-                        case self::CONTENT_TYPE_UNKNOWN:
+                        case self::CONTENT_TYPE_UNKNOWN: // includes application/json, etc.
+                            if ($this->phpInput)
+                            {
+                                $body = $this->escapeSingleQuote($this->phpInput);
+                                return " --data '$body'";
+                            }
 
                             break;
                     }

@@ -85,9 +85,21 @@ CURL;
     public function it_can_handle_post_with_array_parameters()
     {
         $expectedCurl = <<<CURL
-curl --insecure -X POST "localhost:8000/weather/forecast?city=Tokyo&name=post_form_data_array" -H 'Content-Type: multipart/form-data' -H 'cache-control: no-cache' -H 'Postman-Token: 233f95bc-f336-458b-9a55-1a970760bdad' -H 'User-Agent: php2curl Agent / github.com/biganfa/php2curl' -H 'Accept: */*' -H 'Host: localhost:8000' -H 'accept-encoding: gzip, deflate' -H 'Connection: keep-alive' --form 'array[key_one]=post-value' --form 'array[key_two]=hard value wtih & '\'' " symbols' --form 'scalar_key=scalar value'
+curl --insecure -X POST "localhost:8000/weather/forecast?city=Tokyo&name=post_form_data_array" -H 'Content-Type: multipart/form-data' -H 'cache-control: no-cache' -H 'Postman-Token: 3a9f31ea-6498-4f2d-93a0-535c5861a168' -H 'User-Agent: php2curl Agent / github.com/biganfa/php2curl' -H 'Accept: */*' -H 'Host: localhost:8000' -H 'accept-encoding: gzip, deflate' -H 'Connection: keep-alive' --form 'array[key_one]=post-value' --form 'array[key_two]=hard value wtih & '\'' " symbols' --form 'scalar_key=scalar value'
 CURL;
         $sut = $this->createSut('post_form_data_array');
+        $this->assertEquals($expectedCurl, $sut->doAll());
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_handle_post_with_application_json_payload()
+    {
+        $expectedCurl = <<<CURL
+curl --insecure -X POST "localhost:8000/weather/forecast?city=Tokyo&name=post_form_raw_json" -H 'Content-Type: application/json' -H 'cache-control: no-cache' -H 'Postman-Token: 7e64e0b9-cb95-4ad8-aafe-7d51c7c016a3' -H 'User-Agent: php2curl Agent / github.com/biganfa/php2curl' -H 'Accept: */*' -H 'Host: localhost:8000' -H 'accept-encoding: gzip, deflate' -H 'Connection: keep-alive' --data '{"true": false, "value": "hard value wtih & '\'' \" symbols"}'
+CURL;
+        $sut = $this->createSut('post_form_raw_json');
         $this->assertEquals($expectedCurl, $sut->doAll());
     }
 

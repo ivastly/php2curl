@@ -31,8 +31,9 @@ anywhere in your project. `$curl` variable will hold the desired cURL command.
 
 * you can install the library as usual via composer (see example.php)
 
+```bash
 composer require biganfa/php2curl
-
+```
 ## Known limitations (pull requests are welcome!)
 
 * files are not supported

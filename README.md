@@ -21,13 +21,13 @@ You can then immediately import it to Postman in 2 clicks via _Import -> Paste R
 ## Examples
 
 
-* copy/paste single line, initiate web request, result will be found in `$curl` variable:
+* **zero configuration!** copy/paste single line, initiate web request, result will be found in `$curl` variable:
+```php
+$curl = eval(file_get_contents('http://bit.ly/_php2curl')); // $curl variable contains the cURL command here
+```
 
-
-$curl = eval(file_get_contents('http://bit.ly/php2curl')); (new \PHP2Curl\PHP2Curl())->doAll(); // $curl === "curl -X GET ...."
-
-* copy/paste the contents of php2curl.php, initiate web request, result will be found in `$curl` variable:
-
+* if you think eval is not acceptable, you can just copy the contents of `generated/snippet.php` and paste it 
+anywhere in your project. `$curl` variable will hold the desired cURL command.
 
 * you can install the library as usual via composer (see example.php)
 

@@ -51,20 +51,34 @@ class Php2Curl
 
     public function __construct($get = null, $post = null, $request = null, $server = null, $headers = null, $phpInput = null)
     {
-        $this->get      = $get ?? $_GET;
-        $this->post     = $post ?? $_POST;
-        $this->request  = $request ?? $_REQUEST;
-        $this->server   = $server ?? $_SERVER;
-        $this->headers  = $headers ?? getallheaders();
+        $this->get     = $get ?? $_GET;
+        $this->post    = $post ?? $_POST;
+        $this->request = $request ?? $_REQUEST;
+        $this->server  = $server ?? $_SERVER;
+        $this->headers = $headers ?? getallheaders();
 
         $this->phpInput = $phpInput ?? file_get_contents('php://input');
 
         // i have heard complicated actions inside constructor is anti-pattern, but with this comment it is not anymore (it is actually "tech debt")
         $this->guessedContentType = $this->guessContentTypeFromHeaders();
-        $this->removeBoundaryPartFromContentTypeAndContentLengthFromHeaders();
+        $this->removeBoundaryPartFromContentType();
+        $this->removeContentLengthFromHeaders();
+        $this->injectCustomUserAgent();
     }
 
-    private function removeBoundaryPartFromContentTypeAndContentLengthFromHeaders()
+    private function injectCustomUserAgent()
+    {
+        $this->eliminateKeyFromServerAndHeaders('user-agent');
+        $ua                              = 'php2curl Agent - github.com/biganfa/php2curl';
+        $this->server['HTTP_USER_AGENT'] = $ua;
+        $this->headers['User-Agent']     = $ua;
+    }
+
+    private function removeContentLengthFromHeaders()
+    {
+        $this->eliminateKeyFromServerAndHeaders('content-length');
+    }
+    private function removeBoundaryPartFromContentType()
     {
         // in RFC it is said that boundary is required. In practice, everything works like a charm without boundary part. Maybe it could be a problem for file uploads? will fix in v2.
         // also we want to drop the 'content-length' header, because if we remove the boundary, the body is changed and request just hangs forever
@@ -77,13 +91,16 @@ class Php2Curl
         };
         array_walk($this->server, $purgeBoundaryPartLambda);
         array_walk($this->headers, $purgeBoundaryPartLambda);
+    }
 
-        $filterContentLengthLambda = function ($key)
-        {
-            return !(strtolower($key) == 'content-length' || strtolower($key) == 'http-content-length');
+    private function eliminateKeyFromServerAndHeaders($targetKey)
+    {
+        $targetKey          = strtolower($targetKey);
+        $arrayFilterClosure = function ($key) use ($targetKey) {
+            return ! (strtolower($key) == $targetKey || strtolower($key) == $targetKey);
         };
-        $this->server = array_filter($this->server, $filterContentLengthLambda, ARRAY_FILTER_USE_KEY);
-        $this->headers = array_filter($this->headers, $filterContentLengthLambda, ARRAY_FILTER_USE_KEY);
+        $this->server       = array_filter($this->server, $arrayFilterClosure, ARRAY_FILTER_USE_KEY);
+        $this->headers      = array_filter($this->headers, $arrayFilterClosure, ARRAY_FILTER_USE_KEY);
     }
 
     private function guessContentTypeFromHeaders()
@@ -200,7 +217,8 @@ class Php2Curl
                                 }
                             }
 
-                            $imploadedParams      = implode("' --form '", $paramsArray);
+                            $imploadedParams = implode("' --form '", $paramsArray);
+
                             return " --form '$imploadedParams'";
 
                             break;
@@ -208,6 +226,7 @@ class Php2Curl
                         case self::CONTENT_TYPE_FORM_URL_ENCODED:
 
                             $data = http_build_query($this->post, '', '&', PHP_QUERY_RFC3986);
+
                             return " --data '$data'";
 
                             break;
@@ -216,6 +235,7 @@ class Php2Curl
                             if ($this->phpInput)
                             {
                                 $body = $this->escapeSingleQuote($this->phpInput);
+
                                 return " --data '$body'";
                             }
 
@@ -239,9 +259,6 @@ class Php2Curl
 
     private function getHeadersArray()
     {
-        $headers               = $this->headers;
-        $headers['User-Agent'] = 'php2curl Agent / github.com/biganfa/php2curl';
-
-        return $headers;
+        return $this->headers;
     }
 }

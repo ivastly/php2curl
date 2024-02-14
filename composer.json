@@ -17,7 +17,7 @@
         }
     },
     "require": {
-        "php": "^7",
+        "php": "^8",
         "ralouphie/getallheaders": "^3.0"
     },
     "require-dev": {
